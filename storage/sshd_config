@@ -1,0 +1,33 @@
+# This is the sshd server system-wide configuration file.  See
+# sshd_config(5) for more information.
+
+# The strategy used for options in the default sshd_config shipped with
+# OpenSSH is to specify options with their default value where
+# possible, but leave them commented.  Uncommented options override the
+# default value.
+
+Port 22
+ListenAddress 0.0.0.0
+
+HostKey c:/ProgramData/ssh/ssh_host_rsa_key
+
+# Ciphers and keying
+#RekeyLimit default none
+
+# Logging
+# If you need file based logging, use LOCAL0.
+# Logs are generated under %programdata%\ssh\logs.
+SyslogFacility LOCAL0
+LogLevel INFO
+
+PubkeyAuthentication yes
+
+# The default is to check both .ssh/authorized_keys and .ssh/authorized_keys2
+# but this is overridden so installations will only check .ssh/authorized_keys
+AuthorizedKeysFile  .ssh/authorized_keys
+
+# override default of no subsystems
+Subsystem   sftp    sftp-server.exe
+
+Match User test-user
+  AuthorizedKeysFile c:/run/test_user_public_keys
